@@ -92,14 +92,19 @@ def index_file():
     print("\nTF-IDF Number:")
     print(dictOFTF_IDF)
 
+    search_term('2 witnesses 2 miles apart. Plus some irreleivent text', dictOFTF_IDF)
 
-    test_tf('universe','the the universe has very many stars')
     return 'Hello World!'
 
-def test_tf(term, text):
-    newText = text.split(' ')
-    print(text.count(term))
-    print(len(newText))
+
+def search_term(term, dicOFTF_IDF):
+    # Will take the term, break it up into tokens. Find the TF_IDF of each term and print doc with highest sum.
+
+    # Tokenize term
+    wordsList = term.split(" ")
+    print('\nWordslist:')
+    print(wordsList)
+
 
 if __name__ == '__main__':
     app.run()
