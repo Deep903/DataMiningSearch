@@ -10,12 +10,12 @@ def index_file():
 
     # Load Document:
     documents = []
-    with open('UFO - Test.json') as json_file:
+    with open('UFO.json') as json_file:
         data = json.load(json_file)
         for p in data:
             #print('Description: ' + p['Description'])
             documents = [p['Description']] + documents
-    '''
+
     # Create word dictionary (Stemming/Stop words/Etc might go here):
     ufoDictionary = {}
 
@@ -94,12 +94,12 @@ def index_file():
         dictOFTF_IDF[i] = listOFTF_IDF
     #print("\nTF-IDF Number:")
     #print(dictOFTF_IDF)
-'''
+
     import pickle
 
-    '''f = open('indexed.pckl', 'wb')
+    f = open('indexed.pckl', 'wb')
     pickle.dump(dictOFTF_IDF, f)
-    f.close()'''
+    f.close()
 
     f = open('indexed.pckl', 'rb')
     dictOFTF_IDF = pickle.load(f)
