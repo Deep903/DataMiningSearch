@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index_file():
+
     # Load Document:
     documents = []
     with open('UFO - Test.json') as json_file:
@@ -14,12 +15,14 @@ def index_file():
         for p in data:
             #print('Description: ' + p['Description'])
             documents = [p['Description']] + documents
-
+    '''
     # Create word dictionary (Stemming/Stop words/Etc might go here):
     ufoDictionary = {}
 
     # This splits the various descriptions into unique words and their counts for each document
     for index, sentence in enumerate(documents):
+        sentence = str(sentence)
+        print(sentence)
         tokenizedWords = sentence.split(' ')
         ufoDictionary[index] = [(word, tokenizedWords.count(word)) for word in tokenizedWords]
 
@@ -40,7 +43,7 @@ def index_file():
     # Create a list of tokens from all documents
     allDocuments = ''
     for sentence in documents:
-        allDocuments += sentence + ' '
+        allDocuments += str(sentence) + ' '
     allDocumentsTokenized = allDocuments.split(' ')
 
     #print("\nTokens:")
@@ -61,7 +64,7 @@ def index_file():
     for index, voc in enumerate(allDocumentsNoDuplicates):
         count = 0
         for sentence in documents:
-            if voc in sentence:
+            if voc in str(sentence):
                 count += 1
         dictOfNumberOfDocumentsWithTermInside[index] = (voc, count)
     #print("\nCount of Terms:")
@@ -91,16 +94,95 @@ def index_file():
         dictOFTF_IDF[i] = listOFTF_IDF
     #print("\nTF-IDF Number:")
     #print(dictOFTF_IDF)
+'''
+    import pickle
+
+    '''f = open('indexed.pckl', 'wb')
+    pickle.dump(dictOFTF_IDF, f)
+    f.close()'''
+
+    f = open('indexed.pckl', 'rb')
+    dictOFTF_IDF = pickle.load(f)
+    f.close()
 
     topDocIndex = search_term_index('2 witnesses 2 miles apart. Plus some irreleivent text', dictOFTF_IDF)
     topDocScore = search_term_score('2 witnesses 2 miles apart. Plus some irreleivent text', dictOFTF_IDF)
-    for k in enumerate(topDocIndex):
-        print(documents[k[1]])
-    for j in topDocScore:
-        print(j[1])
+    #for k in enumerate(topDocIndex):
+        #print(documents[k[1]])
+    #for j in topDocScore:
+        #print(j[1])
+    #print(documents[topDocIndex[0]])
+    #print(topDocScore[0][1])
+    score1 = str(topDocScore[0][1])
 
-
-    return 'Hello World!'
+    return '''
+    <html>
+        <head>
+            <title>Home Page - UFO Search</title>
+        </head>
+        <body>
+            <h3>''' + documents[topDocIndex[0]] + '''</h3>
+            <h4>''' + str(topDocScore[0][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[1]] + '''</h3>
+            <h4>''' + str(topDocScore[1][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[2]] + '''</h3>
+            <h4>''' + str(topDocScore[2][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[3]] + '''</h3>
+            <h4>''' + str(topDocScore[3][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[4]] + '''</h3>
+            <h4>''' + str(topDocScore[4][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[5]] + '''</h3>
+            <h4>''' + str(topDocScore[5][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[6]] + '''</h3>
+            <h4>''' + str(topDocScore[6][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[7]] + '''</h3>
+            <h4>''' + str(topDocScore[7][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[8]] + '''</h3>
+            <h4>''' + str(topDocScore[8][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[9]] + '''</h3>
+            <h4>''' + str(topDocScore[9][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[10]] + '''</h3>
+            <h4>''' + str(topDocScore[10][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[11]] + '''</h3>
+            <h4>''' + str(topDocScore[11][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[12]] + '''</h3>
+            <h4>''' + str(topDocScore[12][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[13]] + '''</h3>
+            <h4>''' + str(topDocScore[13][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[14]] + '''</h3>
+            <h4>''' + str(topDocScore[14][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[15]] + '''</h3>
+            <h4>''' + str(topDocScore[15][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[16]] + '''</h3>
+            <h4>''' + str(topDocScore[16][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[17]] + '''</h3>
+            <h4>''' + str(topDocScore[17][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[18]] + '''</h3>
+            <h4>''' + str(topDocScore[18][1]) + '''</h4>
+            
+            <h3>''' + documents[topDocIndex[19]] + '''</h3>
+            <h4>''' + str(topDocScore[19][1]) + '''</h4>
+            
+        </body>
+    </html>'''
 
 
 def search_term_index(term, dicOFTF_IDF):
