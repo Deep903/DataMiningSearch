@@ -15,7 +15,7 @@ def index_file():
         for p in data:
             #print('Description: ' + p['Description'])
             documents = [p['Description']] + documents
-
+    '''
     # Create word dictionary (Stemming/Stop words/Etc might go here):
     ufoDictionary = {}
 
@@ -100,13 +100,14 @@ def index_file():
     f = open('indexed.pckl', 'wb')
     pickle.dump(dictOFTF_IDF, f)
     f.close()
-
+    '''
+    import pickle
     f = open('indexed.pckl', 'rb')
     dictOFTF_IDF = pickle.load(f)
     f.close()
 
-    topDocIndex = search_term_index('2 witnesses 2 miles apart. Plus some irreleivent text', dictOFTF_IDF)
-    topDocScore = search_term_score('2 witnesses 2 miles apart. Plus some irreleivent text', dictOFTF_IDF)
+    topDocIndex = search_term_index('Plus some irreleivent text', dictOFTF_IDF)
+    topDocScore = search_term_score('Plus some irreleivent text', dictOFTF_IDF)
     #for k in enumerate(topDocIndex):
         #print(documents[k[1]])
     #for j in topDocScore:
