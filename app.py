@@ -1,20 +1,40 @@
-from flask import Flask
+from flask import Flask, render_template, request
 import math
 import json
 
 app = Flask(__name__)
 
+documents = []
+with open('UFO.json') as json_file:
+    data = json.load(json_file)
+    for p in data:
+        # print('Description: ' + p['Description'])
+        documents = [p['Description']] + documents
+import pickle
+
+f = open('indexed.pckl', 'rb')
+dictOFTF_IDF = pickle.load(f)
+f.close()
+
 
 @app.route('/')
-def index_file():
+def my_form():
+    return render_template('base.html')
 
+
+@app.route('/', methods=['POST'])
+def index_file():
+    query = request.form['text']
+    print(query)
+    print("GOT EM ^")
     # Load Document:
-    documents = []
+    ''' documents = []
     with open('UFO.json') as json_file:
         data = json.load(json_file)
         for p in data:
-            #print('Description: ' + p['Description'])
+            # print('Description: ' + p['Description'])
             documents = [p['Description']] + documents
+    '''
     '''
     # Create word dictionary (Stemming/Stop words/Etc might go here):
     ufoDictionary = {}
@@ -101,20 +121,20 @@ def index_file():
     pickle.dump(dictOFTF_IDF, f)
     f.close()
     '''
-    import pickle
+    '''import pickle
     f = open('indexed.pckl', 'rb')
     dictOFTF_IDF = pickle.load(f)
-    f.close()
+    f.close()'''
 
-    topDocIndex = search_term_index('Plus some irreleivent text', dictOFTF_IDF)
-    topDocScore = search_term_score('Plus some irreleivent text', dictOFTF_IDF)
-    #for k in enumerate(topDocIndex):
-        #print(documents[k[1]])
-    #for j in topDocScore:
-        #print(j[1])
-    #print(documents[topDocIndex[0]])
-    #print(topDocScore[0][1])
-    score1 = str(topDocScore[0][1])
+    topDocIndex = search_term_index(query, dictOFTF_IDF)
+    topDocScore = search_term_score(query, dictOFTF_IDF)
+    # for k in enumerate(topDocIndex):
+    # print(documents[k[1]])
+    # for j in topDocScore:
+    # print(j[1])
+    # print(documents[topDocIndex[0]])
+    # print(topDocScore[0][1])
+    #score1 = str(topDocScore[0][1])
 
     return '''
     <html>
@@ -191,60 +211,58 @@ def search_term_index(term, dicOFTF_IDF):
 
     # Tokenize term
     wordsList = term.split(" ")
-    #print('\nWordslist:')
-    #print(wordsList)
+    # print('\nWordslist:')
+    # print(wordsList)
 
     scoresOfDocs = {}
     for index, words in enumerate(dicOFTF_IDF):
         scoresOfDocs[index] = 0;
         # i represents number of words in each doc.
         for i in range(0, len(dicOFTF_IDF[index])):
-         # The below prints all words
-         #print(dicOFTF_IDF[index][i][0])
+            # The below prints all words
+            # print(dicOFTF_IDF[index][i][0])
 
-         # The below prints all scores
-         #print(dicOFTF_IDF[index][i][1])
-         #print("\n")
+            # The below prints all scores
+            # print(dicOFTF_IDF[index][i][1])
+            # print("\n")
             for x, terms in enumerate(wordsList):
                 if wordsList[x] == (dicOFTF_IDF[index][i][0]):
                     scoresOfDocs[index] += (dicOFTF_IDF[index][i][1])
-    #print(scoresOfDocs)
+    # print(scoresOfDocs)
     indexArray = sorted(range(len(scoresOfDocs)), key=lambda k: scoresOfDocs[k])[-20:]
     indexArray.reverse()
-    #print(indexArray)
+    # print(indexArray)
     return indexArray
+
 
 def search_term_score(term, dicOFTF_IDF):
     # Will take the term, break it up into tokens. Find the TF_IDF of each term and print doc with highest sum.
 
     # Tokenize term
     wordsList = term.split(" ")
-    #print('\nWordslist:')
-    #print(wordsList)
+    # print('\nWordslist:')
+    # print(wordsList)
 
     scoresOfDocs = {}
     for index, words in enumerate(dicOFTF_IDF):
         scoresOfDocs[index] = 0;
         # i represents number of words in each doc.
         for i in range(0, len(dicOFTF_IDF[index])):
-         # The below prints all words
-         #print(dicOFTF_IDF[index][i][0])
+            # The below prints all words
+            # print(dicOFTF_IDF[index][i][0])
 
-         # The below prints all scores
-         #print(dicOFTF_IDF[index][i][1])
-         #print("\n")
+            # The below prints all scores
+            # print(dicOFTF_IDF[index][i][1])
+            # print("\n")
             for x, terms in enumerate(wordsList):
                 if wordsList[x] == (dicOFTF_IDF[index][i][0]):
                     scoresOfDocs[index] += (dicOFTF_IDF[index][i][1])
     topDocScores = sorted(scoresOfDocs.items(), key=lambda u: u[1], reverse=True)
-    #print(topDocScores)
+    # print(topDocScores)
     indexArray = sorted(range(len(scoresOfDocs)), key=lambda k: scoresOfDocs[k])[-20:]
     indexArray.reverse()
-    #print(indexArray)
+    # print(indexArray)
     return topDocScores
-
-
-
 
 
 if __name__ == '__main__':
