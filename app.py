@@ -26,7 +26,6 @@ def my_form():
 def index_file():
     query = request.form['text']
     print(query)
-    print("GOT EM ^")
     # Load Document:
     ''' documents = []
     with open('UFO.json') as json_file:
@@ -142,6 +141,8 @@ def index_file():
             <title>Home Page - UFO Search</title>
         </head>
         <body>
+        <h1>''' + query + '''</h1>
+        <hr>
             <h3>''' + documents[topDocIndex[0]] + '''</h3>
             <h4>''' + str(topDocScore[0][1]) + '''</h4>
             
@@ -207,7 +208,7 @@ def index_file():
 
 
 def search_term_index(term, dicOFTF_IDF):
-    # Will take the term, break it up into tokens. Find the TF_IDF of each term and print doc with highest sum.
+    # Will take the term, break it up into tokens. Find the TF_IDF of each term and return index of the best doc
 
     # Tokenize term
     wordsList = term.split(" ")
@@ -236,7 +237,7 @@ def search_term_index(term, dicOFTF_IDF):
 
 
 def search_term_score(term, dicOFTF_IDF):
-    # Will take the term, break it up into tokens. Find the TF_IDF of each term and print doc with highest sum.
+    # Will take the term, break it up into tokens. Find the TF_IDF of each term and return the score of the best doc.
 
     # Tokenize term
     wordsList = term.split(" ")
