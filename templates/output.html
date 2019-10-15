@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page - UFO Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/mystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.js"></script>
+</head>
+        <body>
+        <div class="container-fluid" id="outputting">
+        <h1>{{query}}</h1>
+        </div>
+        <div class="container-fluid context" id="outputting">
+            <hr>
+                <h3>{{documents[topDocIndex[0]]}}</h3>
+                <h4>{{(topDocScore[0][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[1]]}}</h3>
+                <h4>{{(topDocScore[1][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[2]]}}</h3>
+                <h4>{{(topDocScore[2][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[3]]}}</h3>
+                <h4>{{(topDocScore[3][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[4]]}}</h3>
+                <h4>{{(topDocScore[4][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[5]]}}</h3>
+                <h4>{{(topDocScore[5][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[6]]}}</h3>
+                <h4>{{(topDocScore[6][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[7]]}}</h3>
+                <h4>{{(topDocScore[7][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[8]]}}</h3>
+                <h4>{{(topDocScore[8][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[9]]}}</h3>
+                <h4>{{(topDocScore[9][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[10]]}}</h3>
+                <h4>{{(topDocScore[10][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[11]]}}</h3>
+                <h4>{{(topDocScore[11][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[12]]}}</h3>
+                <h4>{{(topDocScore[12][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[13]]}}</h3>
+                <h4>{{(topDocScore[13][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[14]]}}</h3>
+                <h4>{{(topDocScore[14][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[15]]}}</h3>
+                <h4>{{(topDocScore[15][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[16]]}}</h3>
+                <h4>{{(topDocScore[16][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[17]]}}</h3>
+                <h4>{{(topDocScore[17][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[18]]}}</h3>
+                <h4>{{(topDocScore[18][1])}}</h4>
+
+                <h3>{{documents[topDocIndex[19]]}}</h3>
+                <h4>{{(topDocScore[19][1])}}</h4>
+        </div>
+        <script>
+        var instance = new Mark(document.querySelector(".context"));
+        instance.mark("{{query}}", {
+    "accuracy": "exactly"
+});
+        </script>
+
+
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </body>
+</html>

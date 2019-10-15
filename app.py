@@ -25,7 +25,6 @@ def my_form():
 @app.route('/', methods=['POST'])
 def index_file():
     query = request.form['text']
-    print(query)
     # Load Document:
     ''' documents = []
     with open('UFO.json') as json_file:
@@ -135,76 +134,7 @@ def index_file():
     # print(topDocScore[0][1])
     #score1 = str(topDocScore[0][1])
 
-    return '''
-    <html>
-        <head>
-            <title>Home Page - UFO Search</title>
-        </head>
-        <body>
-        <h1>''' + query + '''</h1>
-        <hr>
-            <h3>''' + documents[topDocIndex[0]] + '''</h3>
-            <h4>''' + str(topDocScore[0][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[1]] + '''</h3>
-            <h4>''' + str(topDocScore[1][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[2]] + '''</h3>
-            <h4>''' + str(topDocScore[2][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[3]] + '''</h3>
-            <h4>''' + str(topDocScore[3][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[4]] + '''</h3>
-            <h4>''' + str(topDocScore[4][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[5]] + '''</h3>
-            <h4>''' + str(topDocScore[5][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[6]] + '''</h3>
-            <h4>''' + str(topDocScore[6][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[7]] + '''</h3>
-            <h4>''' + str(topDocScore[7][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[8]] + '''</h3>
-            <h4>''' + str(topDocScore[8][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[9]] + '''</h3>
-            <h4>''' + str(topDocScore[9][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[10]] + '''</h3>
-            <h4>''' + str(topDocScore[10][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[11]] + '''</h3>
-            <h4>''' + str(topDocScore[11][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[12]] + '''</h3>
-            <h4>''' + str(topDocScore[12][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[13]] + '''</h3>
-            <h4>''' + str(topDocScore[13][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[14]] + '''</h3>
-            <h4>''' + str(topDocScore[14][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[15]] + '''</h3>
-            <h4>''' + str(topDocScore[15][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[16]] + '''</h3>
-            <h4>''' + str(topDocScore[16][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[17]] + '''</h3>
-            <h4>''' + str(topDocScore[17][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[18]] + '''</h3>
-            <h4>''' + str(topDocScore[18][1]) + '''</h4>
-            
-            <h3>''' + documents[topDocIndex[19]] + '''</h3>
-            <h4>''' + str(topDocScore[19][1]) + '''</h4>
-            
-        </body>
-    </html>'''
+    return render_template('output.html', query=query, documents=documents, topDocScore=topDocScore, topDocIndex=topDocIndex)
 
 
 def search_term_index(term, dicOFTF_IDF):
